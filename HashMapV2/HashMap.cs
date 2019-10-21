@@ -11,7 +11,12 @@ namespace HashMapV2
     {
         LinkedList<Pair<TKey, TValue>>[] Collection;
         public int Count => Collection.Length;
+        public int NumberOfPairs => Collection.Select(x => x.Count).ToList().Count;
 
+        public HashMap()
+        {
+            Collection = new LinkedList<Pair<TKey, TValue>>[10];
+        }
         /// <summary>
         /// takes in a string and returns the hash value 
         /// </summary>
@@ -30,7 +35,50 @@ namespace HashMapV2
 
             return hash % Collection.Length;
         }
-        
+
+        public void Add(TKey key, TValue value)
+        {
+            Add(new Pair<TKey, TValue>(key, value));
+        }
+
+        public void Add(Pair<TKey, TValue> pair)
+        {
+            int index = Hash(pair.Key.ToString());
+            if (Collection[index] == null)
+            {
+                Collection[index] = new LinkedList<Pair<TKey, TValue>>();
+                Collection[index].AddLast(pair);
+            }
+            else
+            {
+                bool contains = false;
+                foreach (var item in Collection[index])
+                {
+                    if (item.Key.Equals(pair.Key))
+                    {
+                        contains = true;
+                    }
+                }
+
+                if (contains)
+                {
+                    throw new Exception("");
+                }
+                else
+                {
+                    Collection[index].AddLast(pair);
+                }
+
+            }
+        }
+
+        //bool Remove(TKey key, TValue value)
+        //{
+        //    int index = Hash(key.ToString());
+
+            
+           
+        //}
 
     }
 }

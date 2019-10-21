@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HashMapV2
 {
-    class Pair<TKey, TValue>
+    public class Pair<TKey, TValue>
     {
         public TKey Key { get; set; }
         public TValue Value { get; set; }
